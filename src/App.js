@@ -13,6 +13,7 @@ import Dashboard from "./Page/Dashboard";
 import Categories from "./Page/Categories";
 import Products from "./Page/Products";
 import SingleProduct from "./Page/SingleProduct";
+import Cart from "./Page/Cart";
 
 function App() {
     return (
@@ -54,6 +55,14 @@ function App() {
                             element={
                                 <PrivateRoute>
                                     <SingleProduct />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/cart"
+                            element={
+                                <PrivateRoute>
+                                    <Cart />
                                 </PrivateRoute>
                             }
                         />

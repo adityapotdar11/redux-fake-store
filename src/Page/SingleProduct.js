@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../reducers/productsSlice";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Button, Col, Row } from "react-bootstrap";
 import { ShoppingCart } from "react-feather";
+import { addToCart } from "../reducers/cartSlice";
 
 const SingleProduct = () => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -14,11 +15,31 @@ const SingleProduct = () => {
     }
 
     const products = useSelector((state) => state.products);
+    const userId = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getSingleProduct(atob(prodId)));
     }, []);
+
+    const navigate = useNavigate();
+
+    const onclick = () => {
+        let date = new Date().toISOString();
+        date = date.split("T")[0];
+        const payload = {
+            userId,
+            date,
+            products: [
+                {
+                    productId: atob(prodId),
+                    quantity: 1,
+                },
+            ],
+        };
+        dispatch(addToCart(payload));
+        navigate("/cart");
+    };
 
     return (
         <Fragment>
@@ -49,7 +70,10 @@ const SingleProduct = () => {
 
                                 <Row className="mt-3">
                                     <Col md={12} className="d-grid">
-                                        <Button variant="light">
+                                        <Button
+                                            variant="light"
+                                            onClick={() => onclick()}
+                                        >
                                             <ShoppingCart className="feather" />{" "}
                                             Add to Cart
                                         </Button>

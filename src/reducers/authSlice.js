@@ -60,7 +60,6 @@ export const authSlice = createSlice({
     extraReducers: {
         [userLogin.pending]: (state) => {
             state.loading = true;
-            state.token = null;
         },
         [userLogin.fulfilled]: (state, action) => {
             state.loading = false;
