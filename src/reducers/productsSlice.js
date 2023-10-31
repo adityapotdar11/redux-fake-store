@@ -27,6 +27,14 @@ export const getProductsByCategory = createAsyncThunk(
     }
 );
 
+export const getSingleProduct = createAsyncThunk(
+    "products/single",
+    async (payload, thunkAPI) => {
+        const res = await new axios.get("/products/" + payload, thunkAPI);
+        return res;
+    }
+);
+
 export const productsSlice = createSlice({
     name: "products",
     initialState,
@@ -65,6 +73,23 @@ export const productsSlice = createSlice({
             state.product = null;
             state.loading = false;
             toast.error("Products not found");
+        },
+        [getSingleProduct.pending]: (state) => {
+            state.products = [];
+            state.product = null;
+            state.loading = true;
+        },
+        [getSingleProduct.fulfilled]: (state, action) => {
+            state.products = [];
+            state.product = action.payload.data;
+            state.loading = false;
+            toast.success("Product fetched successfully");
+        },
+        [getSingleProduct.rejected]: (state) => {
+            state.products = [];
+            state.product = null;
+            state.loading = false;
+            toast.error("Product not found");
         },
     },
 });

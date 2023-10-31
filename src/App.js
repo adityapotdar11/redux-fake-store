@@ -12,6 +12,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import Dashboard from "./Page/Dashboard";
 import Categories from "./Page/Categories";
 import Products from "./Page/Products";
+import SingleProduct from "./Page/SingleProduct";
 
 function App() {
     return (
@@ -45,6 +46,14 @@ function App() {
                             element={
                                 <PrivateRoute>
                                     <Products />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/product"
+                            element={
+                                <PrivateRoute>
+                                    <SingleProduct />
                                 </PrivateRoute>
                             }
                         />
