@@ -11,6 +11,7 @@ import Register from "./Page/Auth/Register";
 import PrivateRoute from "./Components/PrivateRoute";
 import Dashboard from "./Page/Dashboard";
 import Categories from "./Page/Categories";
+import Products from "./Page/Products";
 
 function App() {
     return (
@@ -36,6 +37,14 @@ function App() {
                             element={
                                 <PrivateRoute>
                                     <Categories />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path="/products"
+                            element={
+                                <PrivateRoute>
+                                    <Products />
                                 </PrivateRoute>
                             }
                         />
