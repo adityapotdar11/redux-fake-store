@@ -6,8 +6,8 @@ const cookies = new Cookies();
 
 const initialState = {
     isAuthenticated: cookies.get("x-auth-token") ? true : false,
-    loading: true,
-    user: 0,
+    loading: cookies.get("x-auth-token") ? false : true,
+    user: cookies.get("x-auth-token") ? 1 : 0,
 };
 
 const config = {

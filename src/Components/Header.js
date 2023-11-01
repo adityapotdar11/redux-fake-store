@@ -20,6 +20,9 @@ const Header = () => {
                     <Link to="/categories" className="nav-link">
                         Categories
                     </Link>
+                    <Link to="/cart" className="nav-link">
+                        Cart
+                    </Link>
                 </Nav>
             </Navbar.Collapse>
         </Fragment>
