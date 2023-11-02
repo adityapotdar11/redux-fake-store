@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
+axios.defaults.baseURL = process.env.API_BASE_URL; // eslint-disable-line
+
 const initialState = {
     isAuthenticated: cookies.get("x-auth-token") ? true : false,
     loading: cookies.get("x-auth-token") ? false : true,

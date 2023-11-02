@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+axios.defaults.baseURL = process.env.API_BASE_URL; // eslint-disable-line
+
 const initialState = {
     cart: [],
     cartSubtotal: 0,
