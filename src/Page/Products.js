@@ -19,7 +19,7 @@ const Products = () => {
         } else {
             dispatch(getAllProducts());
         }
-    }, []);
+    }, [category]);
     return (
         <Fragment>
             <h1 className="text-center my-4">Products</h1>

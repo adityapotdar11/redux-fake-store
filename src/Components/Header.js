@@ -1,11 +1,16 @@
 import React, { Fragment } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { ShoppingBag } from "react-feather";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../reducers/authSlice";
 
 const Header = () => {
     const auth = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const logoutUser = () => {
+        dispatch(logout());
+    };
     const authLinks = (
         <Fragment>
             <Link to="/dashboard" className="navbar-brand">
@@ -23,6 +28,14 @@ const Header = () => {
                     <Link to="/cart" className="nav-link">
                         Cart
                     </Link>
+                    <a
+                        className="nav-link cursor-pointer"
+                        onClick={() => {
+                            logoutUser();
+                        }}
+                    >
+                        Logout
+                    </a>
                 </Nav>
             </Navbar.Collapse>
         </Fragment>

@@ -5,6 +5,8 @@ import { getCart } from "../reducers/cartSlice";
 
 const Cart = () => {
     const userId = useSelector((state) => state.auth.user);
+    const cartData = useSelector((state) => state.cart);
+    const { cart, cartSubtotal, loading } = cartData;
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCart(userId));
@@ -33,83 +35,47 @@ const Cart = () => {
                                 </tr>
                             </thead>
                             <tbody id="cart-data">
-                                <tr>
-                                    <td scope="col" className="cart-icon-sec">
-                                        <XCircle className="feather" />
-                                    </td>
-                                    <td
-                                        scope="col"
-                                        className="cart-img-section"
-                                    >
-                                        <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" />
-                                    </td>
-                                    <td scope="col">
-                                        Fjallraven - Foldsack No. 1 Backpack,
-                                        Fits 15 Laptops
-                                    </td>
-                                    <td scope="col">$109.95</td>
-                                    <td scope="col">
-                                        <input
-                                            type="number"
-                                            value="4"
-                                            className="form-control"
-                                            min="1"
-                                            max="10"
-                                            style={{ width: "60px" }}
-                                        />
-                                    </td>
-                                    <td scope="col">$439.8</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" className="cart-icon-sec">
-                                        <XCircle className="feather" />
-                                    </td>
-                                    <td
-                                        scope="col"
-                                        className="cart-img-section"
-                                    >
-                                        <img src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg" />
-                                    </td>
-                                    <td scope="col">Mens Cotton Jacket</td>
-                                    <td scope="col">$55.99</td>
-                                    <td scope="col">
-                                        <input
-                                            type="number"
-                                            value="6"
-                                            className="form-control"
-                                            min="1"
-                                            max="10"
-                                            style={{ width: "60px" }}
-                                        />
-                                    </td>
-                                    <td scope="col">$335.94</td>
-                                </tr>
-                                <tr>
-                                    <td scope="col" className="cart-icon-sec">
-                                        <XCircle className="feather" />
-                                    </td>
-                                    <td
-                                        scope="col"
-                                        className="cart-img-section"
-                                    >
-                                        <img src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" />
-                                    </td>
-                                    <td scope="col">
-                                        Mens Casual Premium Slim Fit T-Shirts{" "}
-                                    </td>
-                                    <td scope="col">$22.3</td>
-                                    <td scope="col">
-                                        <input
-                                            type="number"
-                                            value="1"
-                                            className="form-control"
-                                            min="1"
-                                            max="10"
-                                            style={{ width: "60px" }}
-                                        />
-                                    </td>
-                                    <td scope="col">$22.3</td>
-                                </tr>
+                                {!loading && cart ? (
+                                    cart.map((item) => (
+                                        <tr key={btoa(item.productId)}>
+                                            <td
+                                                scope="col"
+                                                className="cart-icon-sec"
+                                            >
+                                                <XCircle className="feather" />
+                                            </td>
+                                            <td
+                                                scope="col"
+                                                className="cart-img-section"
+                                            >
+                                                <img src={item.image} />
+                                            </td>
+                                            <td scope="col">{item.title}</td>
+                                            <td scope="col">${item.price}</td>
+                                            <td scope="col">
+                                                <input
+                                                    type="number"
+                                                    value={item.quantity}
+                                                    className="form-control"
+                                                    min="1"
+                                                    max="10"
+                                                    style={{ width: "60px" }}
+                                                />
+                                            </td>
+                                            <td scope="col">
+                                                ${item.totPrice}
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={6}>
+                                            <h5 className="text-center">
+                                                No data found
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                         <div className="row">
@@ -138,7 +104,7 @@ const Cart = () => {
                                 <button
                                     type="button"
                                     className="btn btn-warning"
-                                    disabled=""
+                                    disabled="true"
                                 >
                                     Update Card
                                 </button>
@@ -151,7 +117,7 @@ const Cart = () => {
                             <div className="subtotal-section">
                                 <div className="title">Subtotal:</div>
                                 <div className="amount" id="subtotal">
-                                    $798.04
+                                    ${!loading ? cartSubtotal : 0}
                                 </div>
                             </div>
                             <div className="subtotal-section">
@@ -163,7 +129,7 @@ const Cart = () => {
                             <div className="subtotal-section">
                                 <div className="title">Total:</div>
                                 <div className="amount" id="total">
-                                    $798.04
+                                    ${!loading ? cartSubtotal : 0}
                                 </div>
                             </div>
                             <div className="d-grid mt-3">

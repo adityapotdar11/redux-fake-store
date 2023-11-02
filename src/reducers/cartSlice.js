@@ -40,6 +40,7 @@ export const getCart = createAsyncThunk(
                     productId: product.productId,
                     quantity: product.quantity,
                     price: prod.data.price,
+                    totPrice: prod.data.price * product.quantity,
                     title: prod.data.title,
                     image: prod.data.image,
                 };

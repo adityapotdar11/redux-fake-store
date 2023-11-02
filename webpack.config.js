@@ -50,4 +50,9 @@ module.exports = {
         new DotenvWebpackPlugin(),
         new EnvironmentPlugin({}),
     ],
+    devServer: {
+        compress: true,
+        port: 3000,
+        hot: true,
+    },
 };

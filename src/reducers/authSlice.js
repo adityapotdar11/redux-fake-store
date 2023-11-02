@@ -30,6 +30,7 @@ export const userLogin = createAsyncThunk(
         return res;
     }
 );
+
 export const register = createAsyncThunk(
     "user/register",
     async (formData, thunkAPI) => {
@@ -58,7 +59,15 @@ export const register = createAsyncThunk(
 export const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        logout: (state) => {
+            cookies.remove("x-auth-token");
+            state.loading = false;
+            state.isAuthenticated = false;
+            state.user = 0;
+            toast.success("Logged out");
+        },
+    },
     extraReducers: {
         [userLogin.pending]: (state) => {
             state.loading = true;
@@ -93,5 +102,7 @@ export const authSlice = createSlice({
         },
     },
 });
+
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;
